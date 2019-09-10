@@ -11,9 +11,9 @@
             Menu
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Top</a>
-            <a class="dropdown-item" href="#">About</a>
-            <a class="dropdown-item" href="#">Contact</a>
+            <router-link to="/" class="dropdown-item">Top</router-link>
+            <router-link to="/about" class="dropdown-item">About</router-link>
+            <router-link to="/contact" class="dropdown-item">Contact</router-link>
           </div>
         </li>
       </ul>
