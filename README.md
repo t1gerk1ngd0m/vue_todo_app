@@ -1,7 +1,7 @@
 # README
 
 ## What's this app？
-このappはrailsとvue.jsを用いた勉強用のtodo作成アプリケーションです。
+railsとvue.jsを用いた勉強用のtodoタスク作成アプリケーションです。
 
 ## Version
 Ruby 2.6.4
