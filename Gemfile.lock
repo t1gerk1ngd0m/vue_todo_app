@@ -110,6 +110,10 @@ GEM
     foreman (0.87.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    graphiql-rails (1.7.0)
+      railties
+      sprockets-rails
+    graphql (1.11.1)
     hpricot (0.8.6)
     html2slim (0.2.0)
       hpricot
@@ -296,6 +300,8 @@ DEPENDENCIES
   dotenv-rails
   enum_help
   foreman
+  graphiql-rails
+  graphql
   html2slim
   jbuilder
   jquery-rails
@@ -320,7 +326,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.6.4p104
+   ruby 2.6.5p114
 
 BUNDLED WITH
    1.17.3

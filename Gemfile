@@ -24,6 +24,8 @@ gem 'html2slim'
 gem 'webpacker'
 gem 'foreman'
 gem 'bundle_outdated_formatter'
+gem 'graphql'
+gem 'graphiql-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -44,3 +46,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
+
+gem 'graphiql-rails', group: :development
