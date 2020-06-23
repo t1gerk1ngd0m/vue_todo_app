@@ -41,42 +41,46 @@
 
 <script>
   import axios from 'axios';
+  import gql from 'graphql-tag'
+
+  const TASKS_QUERY = gql`
+  query allTasks{
+    allTasks {
+      id
+      name
+      isDone
+    }
+  }`
 
   export default {
     data: function () {
       return {
-        tasks: [],
+        allTasks: [],
         newTask: ''
       }
     },
 
     computed: {
       isDoneTasks () {
-        return this.tasks.filter(task => { return task.is_done })
+        return this.allTasks.filter(task => { return task.isDone })
       },
 
       isNotDoneTasks () {
-        return this.tasks.filter(task => { return !task.is_done })
+        return this.allTasks.filter(task => { return !task.isDone })
       },
     },
 
-    mounted: function () {
-      this.fetchTasks();
+    apollo: {
+      allTasks: {
+        query:TASKS_QUERY
+      }
     },
 
     methods: {
-      fetchTasks: function () {
-        axios.get('/api/tasks').then((response) => {
-          for(var i = 0; i < response.data.tasks.length; i++) {
-            this.tasks.push(response.data.tasks[i]);
-          }
-        }, (error) => {
-          console.log(error);
-        });
-      },
       displayFinishedTasks: function() {
         document.querySelector('#finished-tasks').classList.toggle('display_none')
       },
+
       createTask: function () {
         if (!this.newTask) return;
 
@@ -87,6 +91,7 @@
           console.log(error);
         });
       },
+
       doneTask: function (task_id) {
         axios.put('/api/tasks/' + task_id, { task: { is_done: 1 } }).then((response) => {
           this.moveFinishedTask(task_id);
@@ -94,6 +99,7 @@
           console.log(error);
         });
       },
+
       moveFinishedTask: function(task_id) {
         var el = document.querySelector('#row_task_' + task_id);
         // DOMをクローンしておく
