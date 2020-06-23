@@ -10,7 +10,12 @@
     <!-- リスト表示部分 -->
     <div>
       <ul class="list-group">
-        <li v-for="task in tasks" v-if="!task.is_done" v-on:change="doneTask(task.id)" v-bind:id="'row_task_' + task.id" class="list-group-item">
+        <li
+          v-for="task in isNotDoneTasks"
+          @change="doneTask(task.id)"
+          :key="'row_task_' + task.id"
+          class="list-group-item"
+        >
           <input type="checkbox" v-bind:id="'task_' + task.id" />
           <label v-bind:for="'task_' + task.id">{{ task.name }}</label>
         </li>
@@ -21,7 +26,11 @@
     <!-- 完了済みタスク一覧 -->
     <div id="finished-tasks" class="display_none">
       <ul class="list-group">
-        <li v-for="task in tasks" v-if="task.is_done" v-bind:id="'row_task_' + task.id" class="list-group-item line-through">
+        <li
+          v-for="task in isDoneTasks"
+          :key="'row_task_' + task.id"
+          class="list-group-item line-through"
+        >
           <input type="checkbox" v-bind:id="'task_' + task.id" checked="checked" />
           <label v-bind:for="'task_' + task.id">{{ task.name }}</label>
         </li>
@@ -40,9 +49,21 @@
         newTask: ''
       }
     },
+
+    computed: {
+      isDoneTasks () {
+        return this.tasks.filter(task => { return task.is_done })
+      },
+
+      isNotDoneTasks () {
+        return this.tasks.filter(task => { return !task.is_done })
+      },
+    },
+
     mounted: function () {
       this.fetchTasks();
     },
+
     methods: {
       fetchTasks: function () {
         axios.get('/api/tasks').then((response) => {
